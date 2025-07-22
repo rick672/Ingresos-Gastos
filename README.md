@@ -1,61 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎒 Mi Bolsillo
+
+**Mi Bolsillo** es tu compañero ideal para manejar tus finanzas personales 💰. Una PWA súper fácil de usar para registrar tus ingresos, gastos y préstamos 📈. ¡Organiza tu dinero y toma control con solo unos clics!
+
+---
+
+## 🚀 Funcionalidades clave
+
+- 📝 **Registro y edición de movimientos:** Controla tus ingresos y gastos, con la opción de adjuntar imágenes para más detalle.
+- 🤝 **Gestión de préstamos:** Registra a las personas a quienes prestas dinero y lleva un seguimiento claro.
+- 📊 **Dashboard dinámico:** Visualiza gráficos interactivos para entender mejor tus finanzas.
+- 👥 **Relación de personas y movimientos:** Ve todos los movimientos y préstamos asociados a cada persona.
+- 📱 **PWA:** Usa la app desde cualquier dispositivo, ¡sin complicaciones!
+
+---
+
+## 📸 Capturas de pantalla
+
+### 🏠 Dashboard
+![Dashboard](docs/screenshots/projectMiBolsillo.png)
+
+Visualiza un resumen claro de tus gastos y categorías, todo en un solo lugar.
+
+---
+
+### ✍️ Formulario de Movimiento
+![Formulario de Movimiento](docs/screenshots/projectMiBolsilloMovimiento.png)
+
+Añade ingresos y gastos con descripciones e imágenes.
+
+---
+
+### 🖼️ Editar Imagen en Movimiento
+![Editar Imagen Movimiento](docs/screenshots/projectMiBolsilloMovimientoEdit.png)
+
+Modifica los detalles y fotos de tus movimientos fácilmente.
+
+---
+
+### 💸 Crear Préstamo
+![Crear Préstamo](docs/screenshots/projectMiBolsilloPrestamoCreate.png)
+
+Registra préstamos con datos completos para llevar el control.
+
+---
+
+### 📋 Historial de Préstamos por Persona
+![Registro Préstamos Persona](docs/screenshots/projectMiBolsilloPersonaPrestamos.png)
+
+Consulta y administra todos los préstamos asociados a tus contactos.
+
+---
+
+## ⚙️ Instalación
+
+1. Clona el repo:
+    ```bash
+    git clone https://github.com/rick672/Ingresos-Gastos.git
+    ```
+2. Instala dependencias:
+    ```bash
+    composer install
+    npm install
+    ```
+3. Configura `.env` con tus datos (BD, APP_KEY, etc).
+4. Ejecuta migraciones y carga datos:
+    ```bash
+    php artisan migrate --seed
+    ```
+5. Compila assets:
+    ```bash
+    npm run dev
+    ```
+6. Ejecuta el servidor local:
+    ```bash
+    php artisan serve
+    ```
+
+---
+
+## 🛠️ Tecnologías usadas
+
+- Laravel 12
+- FilamentPHP (admin panel rapidísimo ⚡)
+- PWA para uso móvil y escritorio 📲💻
+- MySQL
+- Vue.js para componentes interactivos
+- ChartJS para gráficos llamativos 📈
+
+---
+
+## 🤝 ¿Quieres colaborar?
+
+1. Haz un **fork** 🍴
+2. Crea tu rama con tus cambios (`git checkout -b feature/nombre-cambio`)
+3. Haz commit (`git commit -m "Descripción del cambio"`)
+4. Haz push a tu rama (`git push origin feature/nombre-cambio`)
+5. Abre un **Pull Request**
+
+---
+
+## 📜 Licencia
+
+Este proyecto está bajo la licencia **MIT** — ¡siéntete libre de usarlo y adaptarlo! 🛡️
+
+---
+
+## 🙌 Gracias por pasar por aquí
+
+Hecho con ❤️ y muchas ganas por **Ricardo**
+
+---
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://c.tenor.com/4ER-OGXG7qcAAAAC/cheers-happy.gif" alt="Cheers" width="150" />
 </p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
