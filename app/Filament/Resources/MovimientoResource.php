@@ -21,6 +21,7 @@ class MovimientoResource extends Resource
     protected static ?string $model = Movimiento::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calculator';
+    protected static ?string $navigationGroup = 'Finanzas';
 
     public static function form(Form $form): Form
     {
@@ -35,7 +36,9 @@ class MovimientoResource extends Resource
                                     ->relationship('categoria', 'nombre')
                                     ->columnSpan(4)
                                     ->required()
-                                    ->reactive() // <- importante para que detecte cambios en tiempo real
+                                    ->live() // <- importante para que detecte cambios en tiempo real
+                                    ->searchable()  // Asegúrate de que esté habilitado
+                                    ->preload()     // Precarga las opciones
                                     ->afterStateUpdated(
                                             function (Forms\Set $set, $state) {
                                                 // set establece el valor de tipo_categoria y state agarra el id de el select actual
@@ -62,6 +65,19 @@ class MovimientoResource extends Resource
                                             ])
                                             ->required()
                                         ])
+                                     ->createOptionUsing(function (array $data, Forms\Set $set): int {
+                                            // 1. Crear la nueva categoría
+                                            $categoria = Categoria::create([
+                                                'nombre' => $data['nombre'],
+                                                'tipo' => $data['tipo'],
+                                            ]);
+
+                                            // 2. Forzar la actualización del Select (nuevo en Filament v3)
+                                            $set('categoria_id', $categoria->id); // <- Esto es clave
+
+                                            // 3. Retornar el ID para que el Select lo use
+                                            return $categoria->id;
+                                        })
                                     ->createOptionAction(
                                         function (\Filament\Forms\Components\Actions\Action $action){
                                             return $action
@@ -134,6 +150,7 @@ class MovimientoResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

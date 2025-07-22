@@ -19,6 +19,7 @@ class PersonaResource extends Resource
     protected static ?string $model = Persona::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'Gestion';
 
     public static function form(Form $form): Form
     {
@@ -100,7 +101,7 @@ class PersonaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\PrestamosRelationManager::class,
         ];
     }
 

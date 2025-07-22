@@ -11,26 +11,36 @@ class CreateMovimiento extends CreateRecord
 {
     protected static string $resource = MovimientoResource::class;
 
-    protected function beforeCreate(): void
+    public function getRedirectUrl(): string
     {
-        $data = $this->form->getState();
+        return $this->getResource()::getUrl('index');
+    }
 
-        // Si no se subió una imagen, definimos una por defecto según el tipo
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
         if (empty($data['foto'])) {
-            // Obtener el tipo de categoría
             $categoria = Categoria::find($data['categoria_id']);
             $tipo = $categoria?->tipo;
 
             if ($tipo === 'ingreso') {
-                $this->form->fill([
-                    'foto' => 'movimientos/default_ingreso.png',
-                ]);
+                $data['foto'] = 'movimientos/default_ingresos.jpg';
             } elseif ($tipo === 'gasto') {
-                $this->form->fill([
-                    'foto' => 'movimientos/default_gasto.png',
-                ]);
+                $data['foto'] = 'movimientos/default_gastos.png';
             }
         }
+
+        return $data;
     }
+
+    protected function getFormActions(): array
+    {
+        return [
+            $this->getCreateFormAction()
+                ->label('Registrar'),
+            $this->getCancelFormAction()
+                ->label('Cancelar'),
+        ];
+    }
+
 
 }
