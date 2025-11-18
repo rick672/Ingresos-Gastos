@@ -7,8 +7,23 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    && docker-php-ext-install pdo pdo_mysql pgsql pdo_pgsql \
-    && a2enmod rewrite
+    libonig-dev \
+    libxml2-dev
+
+# Instalar extensiones PHP necesarias
+RUN docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql \
+    mysqli \
+    zip \
+    xml \
+    mbstring \
+    intl
+
+# Habilitar mod_rewrite de Apache
+RUN a2enmod rewrite
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -22,4 +37,4 @@ RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
 # Instalar dependencias de Composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-intl
