@@ -38,7 +38,16 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage
+RUN chmod -R 775 /var/www/html/bootstrap/cache
 
-# Instalar dependencias y ejecutar migraciones
+# Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+
+# Configurar Laravel para producción
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+# Ejecutar migraciones
 RUN php artisan migrate --force
