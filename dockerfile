@@ -44,10 +44,5 @@ RUN chmod -R 775 /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Mostrar errores durante el build
-RUN php artisan route:list 2>&1 || echo "Routes command failed"
-RUN php artisan config:clear
-RUN php artisan cache:clear
-
-# Ejecutar migraciones y mostrar resultado
-RUN php artisan migrate --force --verbose
+# Solo ejecutar migraciones
+RUN php artisan migrate --force
