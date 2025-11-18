@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev
 
-# Instalar extensiones PHP necesarias
+# Instalar extensiones PHP básicas (sin intl por ahora)
 RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
@@ -19,8 +19,7 @@ RUN docker-php-ext-install \
     mysqli \
     zip \
     xml \
-    mbstring \
-    intl
+    mbstring
 
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
@@ -36,5 +35,5 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Instalar dependencias de Composer
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-intl
+# Instalar dependencias de Composer (ignorando extensiones faltantes)
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
