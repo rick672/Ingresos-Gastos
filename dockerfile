@@ -44,6 +44,7 @@ RUN chmod -R 775 /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Ejecutar migraciones y seeders
+# Resetear completamente la base de datos y recrear
+RUN php artisan db:wipe --force
 RUN php artisan migrate --force
 RUN php artisan db:seed --force
