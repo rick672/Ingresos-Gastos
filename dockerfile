@@ -44,5 +44,6 @@ RUN chmod -R 775 /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Solo ejecutar migraciones
+# Verificar y ejecutar migraciones
+RUN php artisan migrate:status --verbose
 RUN php artisan migrate --force
