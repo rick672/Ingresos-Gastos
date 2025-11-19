@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->path('admin')
             ->login()
+            ->brandName('Mi Bolsillo 💰')
             // ->plugin(\TomatoPHP\FilamentPWA\FilamentPWAPlugin::make())
             ->sidebarCollapsibleOnDesktop()
             ->colors([
