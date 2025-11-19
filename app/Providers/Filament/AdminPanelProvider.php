@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->path('admin')
             ->login()
-            ->plugin(\TomatoPHP\FilamentPWA\FilamentPWAPlugin::make())
+            // ->plugin(\TomatoPHP\FilamentPWA\FilamentPWAPlugin::make())
             ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Emerald,

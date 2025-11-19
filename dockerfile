@@ -26,7 +26,13 @@ RUN a2enmod rewrite
 
 # Configurar Apache para Laravel
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-COPY .docker/apache.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html/public\n\
+    <Directory /var/www/html/public>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -38,13 +44,7 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage
-RUN chmod -R 775 /var/www/html/bootstrap/cache
 
-# Instalar dependencias
+# Instalar dependencias y ejecutar migraciones
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-
-# Resetear completamente la base de datos y recrear
-RUN php artisan db:wipe --force
 RUN php artisan migrate --force
-RUN php artisan db:seed --force
