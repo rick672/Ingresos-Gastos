@@ -40,10 +40,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copiar el proyecto
 COPY . /var/www/html
 
-# Establecer permisos
+# Establecer permisos COMPLETOS para storage
 WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage
+RUN chmod -R 775 /var/www/html/bootstrap/cache
+
+# Crear directorio de sesiones si usa file driver
+RUN mkdir -p /var/www/html/storage/framework/sessions
+RUN chown -R www-data:www-data /var/www/html/storage/framework/sessions
+RUN chmod -R 775 /var/www/html/storage/framework/sessions
 
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
