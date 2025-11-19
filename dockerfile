@@ -8,9 +8,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     libonig-dev \
-    libxml2-dev
+    libxml2-dev \
+    libicu-dev
 
-# Instalar extensiones PHP básicas
+# Instalar extensiones PHP básicas (INCLUYENDO intl)
 RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
@@ -19,7 +20,8 @@ RUN docker-php-ext-install \
     mysqli \
     zip \
     xml \
-    mbstring
+    mbstring \
+    intl
 
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
@@ -40,22 +42,24 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copiar el proyecto
 COPY . /var/www/html
 
-# Establecer permisos COMPLETOS para storage
+# Establecer permisos COMPLETOS
 WORKDIR /var/www/html
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage
 RUN chmod -R 775 /var/www/html/bootstrap/cache
 
-# Crear directorio de sesiones si usa file driver
+# Crear directorios de logs y sesiones
 RUN mkdir -p /var/www/html/storage/framework/sessions
-RUN chown -R www-data:www-data /var/www/html/storage/framework/sessions
-RUN chmod -R 775 /var/www/html/storage/framework/sessions
+RUN mkdir -p /var/www/html/storage/framework/views
+RUN mkdir -p /var/www/html/storage/framework/cache
+RUN mkdir -p /var/www/html/storage/logs
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chmod -R 775 /var/www/html/storage
 
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Crear script de inicio que ejecuta migraciones, seeders y luego inicia Apache
+# Crear script de inicio
 RUN echo '#!/bin/bash\n\
 php artisan migrate --force\n\
 php artisan db:seed --force\n\
