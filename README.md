@@ -2,6 +2,10 @@
 
 **Mi Bolsillo** es tu compañero ideal para manejar tus finanzas personales 💰. Una PWA súper fácil de usar para registrar tus ingresos, gastos y préstamos 📈. ¡Organiza tu dinero y toma control con solo unos clics!
 
+> 🧪 **Previsualización del sistema:**  
+> **Usuario:** admin@example.com  
+> **Contraseña:** password
+
 ---
 
 ## 🚀 Funcionalidades clave

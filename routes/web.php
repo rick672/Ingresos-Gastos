@@ -6,6 +6,6 @@ Route::get('/', function () {
     return redirect('/admin'); // Redirige al panel de Filament
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
