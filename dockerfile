@@ -48,8 +48,8 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Verificar estado de migraciones
-RUN php artisan migrate:status
+# Verificar estado de migraciones con PostgreSQL
+RUN php artisan migrate:status --database=pgsql
 
-# Ejecutar migraciones
-RUN php artisan migrate --force
+# Ejecutar migraciones con PostgreSQL
+RUN php artisan migrate --force --database=pgsql
