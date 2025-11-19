@@ -10,7 +10,6 @@
 - 🤝 **Gestión de préstamos:** Registra a las personas a quienes prestas dinero y lleva un seguimiento claro.
 - 📊 **Dashboard dinámico:** Visualiza gráficos interactivos para entender mejor tus finanzas.
 - 👥 **Relación de personas y movimientos:** Ve todos los movimientos y préstamos asociados a cada persona.
-- 📱 **PWA:** Usa la app desde cualquier dispositivo, ¡sin complicaciones!
 
 ---
 
@@ -82,7 +81,6 @@ Consulta y administra todos los préstamos asociados a tus contactos.
 
 - Laravel 12
 - FilamentPHP (admin panel rapidísimo ⚡)
-- PWA para uso móvil y escritorio 📲💻
 - MySQL
 - Vue.js para componentes interactivos
 - ChartJS para gráficos llamativos 📈
