@@ -48,9 +48,10 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Crear script de inicio que ejecuta migraciones y luego inicia Apache
+# Crear script de inicio que ejecuta migraciones, seeders y luego inicia Apache
 RUN echo '#!/bin/bash\n\
 php artisan migrate --force\n\
+php artisan db:seed --force\n\
 apache2-foreground\n\
 ' > /usr/local/bin/start.sh && chmod +x /usr/local/bin/start.sh
 
