@@ -22,24 +22,25 @@ class IngresosChart extends ChartWidget
 
 
         // Obtener ingresos agrupados por mes (1 a 12)
-        $ingresos = Movimiento::selectRaw('MONTH(fecha) as mes, SUM(monto) as total')
+        $ingresos = Movimiento::selectRaw('EXTRACT(MONTH FROM fecha) as mes, SUM(monto) as total')
             ->whereHas('categoria', fn ($query) =>
                 $query->where('tipo', 'ingreso')
             )
             ->groupBy('mes')
             ->get();
+
         foreach ($ingresos as $item) {
             $ingresosPorMes[$item->mes - 1] = $item->total;
         }
 
         // Gastos
-        $gastos = Movimiento::selectRaw('MONTH(fecha) as mes, SUM(monto) as total')
+        $gastos = Movimiento::selectRaw('EXTRACT(MONTH FROM fecha) as mes, SUM(monto) as total')
             ->whereHas('categoria', fn ($query) =>
                 $query->where('tipo', 'gasto')
             )
             ->groupBy('mes')
             ->get();
-
+            
         foreach ($gastos as $item) {
             $gastosPorMes[$item->mes - 1] = $item->total;
         }

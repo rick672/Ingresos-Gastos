@@ -48,19 +48,23 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 775 /var/www/html/storage
 RUN chmod -R 775 /var/www/html/bootstrap/cache
 
-# Crear directorios de logs y sesiones
+# Crear directorios de logs y sesiones CON PERMISOS
 RUN mkdir -p /var/www/html/storage/framework/sessions
 RUN mkdir -p /var/www/html/storage/framework/views
 RUN mkdir -p /var/www/html/storage/framework/cache
 RUN mkdir -p /var/www/html/storage/logs
+RUN touch /var/www/html/storage/logs/laravel.log
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chmod -R 775 /var/www/html/storage
+RUN chmod 666 /var/www/html/storage/logs/laravel.log
 
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Crear script de inicio
 RUN echo '#!/bin/bash\n\
+chown -R www-data:www-data /var/www/html/storage\n\
+chmod -R 775 /var/www/html/storage\n\
 php artisan migrate --force\n\
 php artisan db:seed --force\n\
 apache2-foreground\n\
