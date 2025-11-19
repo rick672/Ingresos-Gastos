@@ -45,6 +45,8 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Instalar dependencias y ejecutar migraciones
+# Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-RUN php artisan migrate --force
+
+# Verificar conexión a la base de datos y mostrar error detallado
+RUN php artisan migrate --force --verbose
