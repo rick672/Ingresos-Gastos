@@ -48,5 +48,11 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Verificar conexión a la base de datos y mostrar error detallado
-RUN php artisan migrate --force --verbose
+# Limpiar caches
+RUN php artisan config:clear
+RUN php artisan cache:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
+
+# Ejecutar migraciones
+RUN php artisan migrate --force
