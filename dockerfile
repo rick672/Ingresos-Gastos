@@ -48,6 +48,10 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 # Instalar dependencias
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Solo limpiar config y ejecutar migraciones
+# Limpiar config y ejecutar migraciones (incluyendo sessions)
 RUN php artisan config:clear
+RUN php artisan migrate --force
+
+# Crear tabla de sesiones si no existe
+RUN php artisan session:table || echo "Sessions table already exists"
 RUN php artisan migrate --force
