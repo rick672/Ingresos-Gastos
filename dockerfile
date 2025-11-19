@@ -45,11 +45,7 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Instalar dependencias
+# Instalar dependencias (SOLO esto durante build)
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Verificar estado de migraciones con PostgreSQL
-RUN php artisan migrate:status --database=pgsql
-
-# Ejecutar migraciones con PostgreSQL
-RUN php artisan migrate --force --database=pgsql
+# Las migraciones se ejecutarán AUTOMÁTICAMENTE en runtime por Render
